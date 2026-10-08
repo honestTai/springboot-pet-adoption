@@ -1,0 +1,31 @@
+@startuml
+
+actor "前台用户" as User
+participant "Frontend" as Frontend
+participant "Backend Controller" as BackendController
+participant "Backend Service" as BackendService
+participant "Database" as Database
+
+User -> Frontend: 触发购买操作
+Frontend -> Frontend: 构造订单数据
+Frontend -> BackendController: 发起新增订单请求
+BackendController -> BackendService: 调用add方法
+BackendService -> Database: 查询用户信息
+Database --> BackendService: 返回用户信息
+BackendService -> Database: 查询商品信息
+Database --> BackendService: 返回商品信息
+alt 余额不足
+    BackendService --> BackendController: 抛出余额不足错误
+    BackendController --> Frontend: 返回余额不足错误
+else 余额充足
+    BackendService -> Database: 插入订单信息
+    Database --> BackendService: 返回插入结果
+    BackendService -> Database: 更新用户余额
+    Database --> BackendService: 返回更新结果
+    BackendService -> Database: 更新商品库存
+    Database --> BackendService: 返回更新结果
+    BackendService --> BackendController: 返回插入结果
+    BackendController --> Frontend: 返回插入结果
+end
+
+@enduml

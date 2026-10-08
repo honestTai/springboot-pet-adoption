@@ -1,0 +1,23 @@
+@startuml
+
+actor "前台用户" as User
+participant "Frontend" as Frontend
+participant "Backend Controller" as BackendController
+participant "Backend Service" as BackendService
+participant "Database" as Database
+
+User -> Frontend: 发起领养动物请求
+Frontend -> BackendController: 发起修改动物状态请求
+BackendController -> BackendService: 调用updateById方法
+BackendService -> Database: 更新动物状态
+Database --> BackendService: 返回更新结果
+BackendService --> BackendController: 返回更新结果
+BackendController --> Frontend: 返回更新结果
+Frontend -> BackendController: 发起添加领养记录请求
+BackendController -> BackendService: 调用add方法
+BackendService -> Database: 插入领养记录
+Database --> BackendService: 返回领养结果
+BackendService --> BackendController: 返回领养结果
+BackendController --> Frontend: 返回领养结果
+Frontend --> User: 返回领养结果
+@enduml

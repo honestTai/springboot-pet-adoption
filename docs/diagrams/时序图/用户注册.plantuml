@@ -1,0 +1,23 @@
+@startuml
+
+actor "前台用户" as User
+participant "Controller" as Controller
+participant "Service" as Service
+participant "Mapper" as Mapper
+
+User -> Controller: 发起注册请求
+Controller -> Service: 调用register方法
+Service -> Service: 检查参数
+
+    Service -> Service: 调用userService.register方法
+    Service -> Mapper: 将Account转换为User
+    Mapper -> Mapper: 查询数据库检查用户是否存在
+    alt 用户不存在
+        Mapper -> Mapper: 插入用户信息
+    else 用户已存在
+        Service --> Controller: 返回用户已存在错误
+    end
+
+Controller --> User: 返回注册成功
+
+@enduml

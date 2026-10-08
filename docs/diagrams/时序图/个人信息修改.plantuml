@@ -1,0 +1,17 @@
+@startuml
+
+actor "用户" as User
+participant "Frontend" as Frontend
+participant "Backend Controller" as BackendController
+participant "Backend Service" as BackendService
+participant "Database" as Database
+
+User -> Frontend: 触发保存操作
+Frontend -> BackendController: 发起更新用户信息请求
+BackendController -> BackendService: 调用updateById方法
+BackendService -> Database: 更新用户信息
+Database --> BackendService: 返回更新结果
+BackendService --> BackendController: 返回更新结果
+BackendController --> Frontend: 返回更新结果
+
+@enduml

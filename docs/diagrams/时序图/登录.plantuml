@@ -1,0 +1,31 @@
+@startuml
+
+actor "前台用户" as User
+participant "Controller" as Controller
+participant "Service" as Service
+participant "Mapper" as Mapper
+participant "TokenUtils" as TokenUtils
+
+User -> Controller: 发起登录请求
+Controller -> Service: 调用login方法
+Service -> Mapper: 查询数据库获取用户信息
+alt 用户角色为管理员
+    Mapper -> Mapper: 查询数据库获取管理员信息
+else 用户角色为普通用户
+    Mapper -> Mapper: 查询数据库获取普通用户信息
+end
+alt 用户不存在
+    Mapper --> Service: 返回用户不存在错误
+    Service --> Controller: 返回用户不存在错误
+else 用户存在
+    alt 密码错误
+        Service --> Controller: 返回用户密码错误
+    else 密码正确
+        Service -> TokenUtils: 生成token
+        TokenUtils --> Service: 返回token
+        Service --> Controller: 返回用户信息和token
+    end
+end
+Controller --> User: 返回登录结果
+
+@enduml

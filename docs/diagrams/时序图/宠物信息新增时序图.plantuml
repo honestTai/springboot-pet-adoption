@@ -1,0 +1,24 @@
+@startuml
+
+actor "后台用户" as User
+participant "Frontend" as Frontend
+participant "Form Validation" as FormValidation
+participant "Backend Controller" as BackendController
+participant "Backend Service" as BackendService
+participant "Database" as Database
+
+User -> Frontend: 触发保存操作
+Frontend -> FormValidation: 验证表单数据
+FormValidation -> Frontend: 返回验证结果
+alt 表单验证通过
+    Frontend -> BackendController: 发起新增/更新动物信息请求
+    BackendController -> BackendService: 调用add/update方法
+    BackendService -> Database: 插入/更新动物信息
+    Database --> BackendService: 返回插入/更新结果
+    BackendService --> BackendController: 返回插入/更新结果
+    BackendController --> Frontend: 返回插入/更新结果
+else 表单验证未通过
+    Frontend -> Frontend: 显示表单验证错误提示
+end
+
+@enduml
