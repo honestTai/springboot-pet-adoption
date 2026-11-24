@@ -2,7 +2,7 @@
 
 > Spring Boot + Vue 的宠物领养管理系统。
 
-本项目由 [HRouter](https://hrouter.net) 赞助 —— 面向开发者的 AI 中转站：一个 Key 调用多家大模型，稳定透明，注册即用。
+本项目由 [HRouter](https://hrouter.net/) 赞助 —— 面向开发者的 AI 编程模型按量计费网关：一把 API Key 直连 **Claude、OpenAI Codex / GPT、Google Gemini、DeepSeek**，零月费订阅，一键接入 [Claude Code](https://hrouter.net/docs/claude-code/)、[Codex CLI](https://hrouter.net/docs/codex/)、[Gemini CLI](https://hrouter.net/docs/gemini-cli/)、[DeepSeek](https://hrouter.net/docs/deepseek/)，实时价格与可用率见 [模型广场](https://hrouter.net/models/)。
 
 ## 文档与资源
 
